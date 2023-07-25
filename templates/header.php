@@ -1,6 +1,13 @@
 <?php
 
-include_once("config/url.php")
+include_once("config/url.php");
+include_once("config/processo.php");
+
+// limpar mensagem essa condição limpa a mensagem da pagina ao carregar. 
+if(isset($_SESSION['msg'])){
+   $printMsg = $_SESSION['msg'];
+   $_SESSION['msg'] = ''; 
+}
 
 ?>
 
@@ -23,7 +30,7 @@ include_once("config/url.php")
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <a class="navbar-brand" href="<?= $BASE_URL ?>index.php">
                 <img src="<?= $BASE_URL ?>img/agenda.PNG" alt="Agenda">
             </a>

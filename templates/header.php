@@ -2,6 +2,8 @@
 
 include_once("config/url.php");
 include_once("config/processo.php");
+// include_once("config/conexao.php"); // teste de Conexão com o banco
+
 
 // limpar mensagem essa condição limpa a mensagem da pagina ao carregar. 
 if(isset($_SESSION['msg'])){

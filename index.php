@@ -13,7 +13,7 @@ include_once("templates/header.php");
     <h1 id="main-title" class="text-center m-3">Fornecedores</h1>
     <?php if (count($agenda) > 0) : ?>
         <!-- <p>Tem Contatos</p> -->
-        <div class="card card-solid m-2">
+        <div class="card card-solid">
             <div class="card-body">
                 <table class="table table-hover" id="tabela-agenda">
                     <thead>

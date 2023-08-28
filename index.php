@@ -67,9 +67,9 @@ include_once("templates/header.php");
                                 <td>
                                     <center><?= $a['contato'];?></center>
                                 </td>
-                                <td class="actions d-flex justify-content-around">
-                                    <center><a href="#"><i class="fas fa-pencil-alt text-primary"></i></a></center>
-                                    <center><a href="#"><i class="fas fa-trash-alt text-danger"></i></a></center>
+                                <td class="actions d-flex justify-content-around" >
+                                    <center><button title="Editar" type="button" class="btn btn-info" data-toggle="modal" data-target="#Editar<?= $l['ID']; ?>"><i class="fa fa-edit "></i></button></center>
+                                    <center><button title="Deletar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#Excluir<?= $l['ID']; ?>"><i class="fa fa-trash "></i></button></center>
                                 </td>
                             </tr>
                         <?php } ?>

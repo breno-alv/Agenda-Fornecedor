@@ -27,6 +27,7 @@ include_once("templates/header.php");
                             <th><center>Forma Pagamento</center></th>
                             <th><center>Periodicidade</center></th>
                             <th><center>Contato</center></th>
+                            <th><center>Acoes</center></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -65,6 +66,10 @@ include_once("templates/header.php");
                                 </td>
                                 <td>
                                     <center><?= $a['contato'];?></center>
+                                </td>
+                                <td class="actions d-flex justify-content-around">
+                                    <center><a href="#"><i class="fas fa-pencil-alt text-primary"></i></a></center>
+                                    <center><a href="#"><i class="fas fa-trash-alt text-danger"></i></a></center>
                                 </td>
                             </tr>
                         <?php } ?>

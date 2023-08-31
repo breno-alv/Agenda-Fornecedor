@@ -2,7 +2,20 @@
 
 include_once("templates/header.php");
 include_once("templates/footer.php");
+include_once("config/classes.php");
 
+############################################################################
+if (isset($_POST['Novo'])) {
+    $nome = $_POST['$nome'];
+    $tipo_servico = $_POST['$tipo_servico'];
+    $natureza = $_POST['$natureza'];
+    $vencimento = $_POST['$vencimento'];
+    $valor = $_POST['$valor'];
+    $forma_pgt = $_POST['$forma_pgt'];
+    $periodicidade = $_POST['$periodicidade'];
+    $contato = $_POST['$contato'];
+
+}
 
 ?>
 
@@ -119,56 +132,56 @@ include_once("templates/footer.php");
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <label for="cargo">Nome:</label>
-                        <input type="text" class="form-control" name="cargo" id="nome" required="">
+                        <label for="nome">Nome:</label>
+                        <input type="text" class="form-control" name="nome" id="nome" required="">
                         <br>
                     </div>
                     <br>
                     <div class="row">
-                        <label for="cargo">Serviço:</label>
-                        <input type="text" class="form-control" name="cargo" id="tipo_servico" required="">
+                        <label for="servico">Serviço:</label>
+                        <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" required="">
                         <br>
                     </div>
                    
                     <div class="row">
-                        <label for="cargo">Natureza:</label>
-                        <input type="text" class="form-control" name="cargo" id="natureza" required="">
+                        <label for="natureza">Natureza:</label>
+                        <input type="text" class="form-control" name="natureza" id="natureza" required="">
                         <br>
                     </div>
                     
                     <div class="row">
-                        <label for="cargo">Vencimento:</label>
-                        <input type="text" class="form-control" name="cargo" id="vencimento" required="">
+                        <label for="vencimento">Vencimento:</label>
+                        <input type="text" class="form-control" name="vencimento" id="vencimento" required="">
                         <br>
                     </div>
                     
                     <div class="row">
-                        <label for="cargo">Valor:</label>
-                        <input type="text" class="form-control" name="cargo" id="valor" required="">
+                        <label for="valor">Valor:</label>
+                        <input type="text" class="form-control" name="valor" id="valor" required="">
                         <br>
                     </div>
                     
                     <div class="row">
-                        <label for="cargo">Forma Pagamento:</label>
-                        <input type="text" class="form-control" name="cargo" id="forma_pgt" required="">
+                        <label for="forma_pgt">Forma Pagamento:</label>
+                        <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" required="">
                         <br>
                     </div>
                  
                     <div class="row">
-                        <label for="cargo">Periodicidade:</label>
-                        <input type="text" class="form-control" name="cargo" id="preiodicidade" required="">
+                        <label for="periodicidade">Periodicidade:</label>
+                        <input type="text" class="form-control" name="preiodicidade" id="preiodicidade" required="">
                         <br>
                     </div>
                     
                     <div class="row">
-                        <label for="cargo">Contato:</label>
-                        <input type="text" class="form-control" name="cargo" id="contato" required="">
+                        <label for="contato">Contato:</label>
+                        <input type="text" class="form-control" name="contato" id="contato" required="">
                         <br>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" name="cNovo" class="btn btn-success" value="Enviar">Enviar</button>
+                    <button type="submit" name="Novo" class="btn btn-success" value="Enviar">Enviar</button>
                 </div>
             </form>
         </div>

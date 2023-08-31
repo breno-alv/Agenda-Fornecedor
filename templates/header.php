@@ -2,7 +2,8 @@
 
 include_once("config/url.php");
 include_once("config/processo.php");
-// include_once("config/conexao.php"); // teste de Conexão com o banco
+include_once("./index.php");
+include_once("config/conexao.php"); // teste de Conexão com o banco
 
 
 // limpar mensagem essa condição limpa a mensagem da pagina ao carregar. 
@@ -39,7 +40,7 @@ if(isset($_SESSION['msg'])){
             <div>
                 <div class="navbar-nav">
                     <a class="nav-link active" id="home-link" href="<?= $BASE_URL ?>index.php">Agenda</a>
-                    <a class="nav-link active" id="home-link" href="<?= $BASE_URL ?>create.php">Adicionar Contato</a>
+                    <a title="Adicionar" class="nav-link active" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
                 </div>
             </div>
         </nav>

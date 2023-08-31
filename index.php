@@ -107,16 +107,84 @@ include_once("templates/footer.php");
     <?php endif; ?>
 </div>
 
+<!--MODAL NOVO-->
+<div class="modal fade" id="Novo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="index.php" method="POST">
+                <div class="modal-header">
+                    <h2 class="modal-title" id="exampleModalLabel">
+                        <center>Cadastro de Fornecedor</center>
+                    </h2>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <label for="cargo">Nome:</label>
+                        <input type="text" class="form-control" name="cargo" id="nome" required="">
+                        <br>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <label for="cargo">Serviço:</label>
+                        <input type="text" class="form-control" name="cargo" id="tipo_servico" required="">
+                        <br>
+                    </div>
+                   
+                    <div class="row">
+                        <label for="cargo">Natureza:</label>
+                        <input type="text" class="form-control" name="cargo" id="natureza" required="">
+                        <br>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="cargo">Vencimento:</label>
+                        <input type="text" class="form-control" name="cargo" id="vencimento" required="">
+                        <br>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="cargo">Valor:</label>
+                        <input type="text" class="form-control" name="cargo" id="valor" required="">
+                        <br>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="cargo">Forma Pagamento:</label>
+                        <input type="text" class="form-control" name="cargo" id="forma_pgt" required="">
+                        <br>
+                    </div>
+                 
+                    <div class="row">
+                        <label for="cargo">Periodicidade:</label>
+                        <input type="text" class="form-control" name="cargo" id="preiodicidade" required="">
+                        <br>
+                    </div>
+                    
+                    <div class="row">
+                        <label for="cargo">Contato:</label>
+                        <input type="text" class="form-control" name="cargo" id="contato" required="">
+                        <br>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="submit" name="cNovo" class="btn btn-success" value="Enviar">Enviar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <?php foreach ($agenda as $a) { ?>
     <!--MODAL EDITAR-->
-    <div class="modal fade" id="Editar<?= $a['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade " id="Editar<?= $a['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog " role="document">
             <div class="modal-content">
                 <form action="index.php" method="POST">
                     <input type="hidden" name="id" value="<?= $a['id']; ?>">
                     <div class="modal-header" style="text-align: center;">
                         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
-                        <h2 class="modal-title" id="myModelLabel" >
+                        <h2 class="modal-title" id="myModelLabel">
                             <center>EDITAR FORNECEDOR</center>
                         </h2>
                     </div>

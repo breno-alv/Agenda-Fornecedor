@@ -6,7 +6,7 @@ class C_agenda extends Con {
         $sql = "INSERT INTO cad_fornecedor (nome, tipo_servico, natureza, vencimento, valor, forma_pgt, periodicidade, contato) 
         VALUES (:nome, :tipo_servico, :natureza, :vencimento, :valor, :forma_pgt, :periodicidade, :contato)" ;
 
-        $conn = $this->Connect ();
+        $conn = $this->Connect();
         $stmt = $conn->prepare($sql);
         $stmt->binParam(":nome", $nome, PDO::PARAM_STR);
         $stmt->binParam(":tipo_servico", $tipo_servico, PDO::PARAM_STR);

@@ -1,9 +1,10 @@
 <?php
 
 include_once("config/url.php");
-include_once("config/processo.php");
+// include_once("config/processo.php");
 include_once("./index.php");
 include_once("config/conexao.php"); // teste de Conexão com o banco
+include_once("config/classes.php");
 
 
 // limpar mensagem essa condição limpa a mensagem da pagina ao carregar. 

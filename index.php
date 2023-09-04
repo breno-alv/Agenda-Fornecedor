@@ -4,17 +4,52 @@ include_once("templates/header.php");
 include_once("templates/footer.php");
 include_once("config/classes.php");
 
-############################################################################
-if (isset($_POST['Novo'])) {
-    $nome = $_POST['$nome'];
-    $tipo_servico = $_POST['$tipo_servico'];
-    $natureza = $_POST['$natureza'];
-    $vencimento = $_POST['$vencimento'];
-    $valor = $_POST['$valor'];
-    $forma_pgt = $_POST['$forma_pgt'];
-    $periodicidade = $_POST['$periodicidade'];
-    $contato = $_POST['$contato'];
+$C_agenda = new C_agenda();
+$agenda = $C_agenda->listar();
+// $agenda = $C_agenda->editar();
 
+############################################################################
+##### ADICIONAR NOVO FORNECEDOR ####################
+
+if (isset($_POST['Novo'])) {
+    $nome = $_POST['nome'];
+    $tipo_servico = $_POST['tipo_servico'];
+    $natureza = $_POST['natureza'];
+    $vencimento = $_POST['vencimento'];
+    $valor = $_POST['valor'];
+    $forma_pgt = $_POST['forma_pgt'];
+    $periodicidade = $_POST['periodicidade'];
+    $contato = $_POST['contato'];
+    // var_dump($_POST);
+
+    if ($C_agenda->inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato )) {
+        // header('Location: admin-Cargo.php?ins=1');
+        echo "Adicionado com sucesso";
+    } else {
+        // header('Location: admin-Cargo.php?ins=0');
+        echo "Não foi adicionado";
+    }
+}
+
+##### EDITAR UM FORNECEDOR ###########################
+
+if (isset($_POST['Editar'])) {
+    $nome = $_POST['nome'];
+    $tipo_servico = $_POST['tipo_servico'];
+    $natureza = $_POST['natureza'];
+    $vencimento = $_POST['vencimento'];
+    $valor = $_POST['valor'];
+    $forma_pgt = $_POST['forma_pgt'];
+    $periodicidade = $_POST['periodicidade'];
+    $contato = $_POST['contato'];
+    $id = $_POST['id'];
+    var_dump($_POST);
+
+    if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id )){
+        echo "Fornecedor Editado";
+    } else {
+        echo "Erro ao editar o Fornecedor";
+    }
 }
 
 ?>
@@ -169,7 +204,7 @@ if (isset($_POST['Novo'])) {
                  
                     <div class="row">
                         <label for="periodicidade">Periodicidade:</label>
-                        <input type="text" class="form-control" name="preiodicidade" id="preiodicidade" required="">
+                        <input type="text" class="form-control" name="periodicidade" id="preiodicidade" required="">
                         <br>
                     </div>
                     
@@ -203,49 +238,50 @@ if (isset($_POST['Novo'])) {
                     </div>
                     <div class="modal-body">
                         <div class="row">
-                            <label for="cargo">Nome:</label>
-                            <input type="text" class="form-control" name="cargo" id="nome" value="<?= $a['nome']; ?>" required="">
+                            <label for="nome">Nome:</label>
+                            <input type="text" class="form-control" name="nome" id="nome" value="<?= $a['nome']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Serviço:</label>
-                            <input type="text" class="form-control" name="cargo" id="tipo_servico" value="<?= $a['tipo_servico']; ?>" required="">
+                            <label for="servico">Serviço:</label>
+                            <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" value="<?= $a['tipo_servico']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Natureza:</label>
-                            <input type="text" class="form-control" name="cargo" id="natureza" value="<?= $a['natureza']; ?>" required="">
+                            <label for="natureza">Natureza:</label>
+                            <input type="text" class="form-control" name="natureza" id="natureza" value="<?= $a['natureza']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Vencimento:</label>
-                            <input type="text" class="form-control" name="cargo" id="vencimento" value="<?= $a['vencimento']; ?>" required="">
+                            <label for="vencimento">Vencimento:</label>
+                            <input type="text" class="form-control" name="vencimento" id="vencimento" value="<?= $a['vencimento']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Valor:</label>
-                            <input type="text" class="form-control" name="cargo" id="valor" value="<?= $a['valor']; ?>" required="">
+                            <label for="valor">Valor:</label>
+                            <input type="text" class="form-control" name="valor" id="valor" value="<?= $a['valor']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Forma Pagamento:</label>
-                            <input type="text" class="form-control" name="cargo" id="forma_pgt" value="<?= $a['forma_pgt']; ?>" required="">
+                            <label for="form_pgt">Forma Pagamento:</label>
+                            <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" value="<?= $a['forma_pgt']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">periodicidade:</label>
-                            <input type="text" class="form-control" name="cargo" id="preiodicidade" value="<?= $a['periodicidade']; ?>" required="">
+                            <label for="periodicidade">periodicidade:</label>
+                            <input type="text" class="form-control" name="periodicidade" id="periodicidade" value="<?= $a['periodicidade']; ?>" required="">
                             <br>
                         </div>
                         <div class="row">
-                            <label for="cargo">Contato:</label>
-                            <input type="text" class="form-control" name="cargo" id="contato" value="<?= $a['contato']; ?>" required="">
+                            <label for="contato">Contato:</label>
+                            <input type="text" class="form-control" name="contato" id="contato" value="<?= $a['contato']; ?>" required="">
                             <br>
                         </div>
+                        <!-- <input type="hidden" name="editar" value="<?= $_POST ?>"> -->
                         <div class="modal-footer">
                             <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal" aria-hidden="true">Fechar</button>
                             <div style="float:right; margin-left: 10px;">
-                                <input type="submit" class="btn btn-lg btn-success" name="cEditar" value="Salvar">
+                                <input type="submit" class="btn btn-lg btn-success" name="Editar" value="Salvar">
                             </div>
                         </div>
                     </div>

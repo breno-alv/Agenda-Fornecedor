@@ -1,18 +1,19 @@
 <?php 
 
-    session_start();
+    // session_start();
 
-    include_once("conexao.php");
-    include_once("url.php");
+    // include_once("conexao.php");
+    // include_once("url.php");
+    // include_once("classes.php");
 
-    $agenda = [];
+    // $agenda = [];
 
-    $query = "SELECT * FROM cad_fornecedor";
+    // $query = "SELECT * FROM cad_fornecedor";
 
-    $stmt = $conn->prepare($query);
+    // $stmt = $conn->prepare($sql);
     
-    $stmt->execute();
+    // $stmt->execute();
 
-    $agenda = $stmt->fetchAll();
+    // $agenda = $stmt->fetchAll();
 
 ?>

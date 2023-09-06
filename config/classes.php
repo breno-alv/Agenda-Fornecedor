@@ -41,7 +41,7 @@ class C_agenda extends Con{
    
 
     public function editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id) {
-        $sql = "UPDATE cad_fornecedor SET $nome = :nome, $tipo_servico = :tipo_servico, $natureza = :natureza, $vencimento = :vencimento, $valor = :valor, $forma_pgt = :forma_pgt, $periodicidade = :periodicidade, $contato = :contato WHERE id = :id";
+        $sql = "UPDATE cad_fornecedor SET nome = :nome, tipo_servico = :tipo_servico, natureza = :natureza, vencimento = :vencimento, valor = :valor, forma_pgt = :forma_pgt, periodicidade = :periodicidade, contato = :contato WHERE id = :id";
 
         $conn = $this->Connect();
         $stmt = $conn->prepare($sql);

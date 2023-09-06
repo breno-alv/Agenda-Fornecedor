@@ -46,7 +46,7 @@ if (isset($_POST['Editar'])) {
     var_dump($_POST);
 
     if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id)) {
-        echo "Fornecedor Editado";
+        header('Location: index.php?ins=1');
     } else {
         echo "Erro ao editar o Fornecedor";
     }
@@ -60,7 +60,7 @@ if (isset($_POST['Editar'])) {
     <?php endif; ?> -->
     <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
         <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
-            ADICIONADO COM SUCESSO!
+            ATIVIDADE REALIZADA COM SUCESSO!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -273,7 +273,7 @@ if (isset($_POST['Editar'])) {
                             <br>
                         </div>
                         <div class="row">
-                            <label for="form_pgt">Forma Pagamento:</label>
+                            <label for="forma_pgt">Forma Pagamento:</label>
                             <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" value="<?= $a['forma_pgt']; ?>" required="">
                             <br>
                         </div>

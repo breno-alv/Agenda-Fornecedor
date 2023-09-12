@@ -63,15 +63,13 @@ class C_agenda extends Con{
 
     }
 
-    public function excluir($id){
+    public function deletar($id){
         $sql = "DELETE FROM cad_fornecedor WHERE id = :id";
         
         $conn = $this->Connect();
-        var_dump($id);
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
-
-       
+        
         try {
             return $stmt->execute();
         } catch (Exception $ex) {

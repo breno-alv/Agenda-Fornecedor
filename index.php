@@ -1,8 +1,12 @@
 <?php
 
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 include_once("templates/header.php");
 include_once("templates/footer.php");
 include_once("config/classes.php");
+include_once("templates/footer.php");
 
 $C_agenda = new C_agenda();
 $agenda = $C_agenda->listar();
@@ -12,6 +16,8 @@ $agenda = $C_agenda->listar();
 ##### ADICIONAR NOVO FORNECEDOR ####################
 
 if (isset($_POST['Novo'])) {
+
+    // var_dump($_POST);
     $nome = $_POST['nome'];
     $tipo_servico = $_POST['tipo_servico'];
     $natureza = $_POST['natureza'];
@@ -20,10 +26,11 @@ if (isset($_POST['Novo'])) {
     $forma_pgt = $_POST['forma_pgt'];
     $periodicidade = $_POST['periodicidade'];
     $contato = $_POST['contato'];
-    // var_dump($_POST);
+
 
     if ($C_agenda->inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato)) {
         header('Location: index.php?ins=1');
+        // var_dump($_POST['Novo']);
         // echo "Adicionado com sucesso";
     } else {
         header('Location: index.php?ins=0');
@@ -46,20 +53,22 @@ if (isset($_POST['Editar'])) {
     // var_dump($_POST);
 
     if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id)) {
-        header('Location: index.php?ins=1');
+
+        header('Location: index.php?msg=1');
+        // var_dump($_POST);
     } else {
         echo "Erro ao editar o Fornecedor";
     }
 
     ###### EXCLUIR FORNECEDOR ##############################
-    
-    if (isset($_POST['Excluir'])) {
-        var_dump($id);
-        $id = $_POST['id'];
-        
 
-        if ($C_agenda->excluir($id)) {
-            header('Location: index.php');
+    if (isset($_POST['Excluir'])) {
+        // var_dump($_POST);
+        $id = $_POST['id'];
+
+
+        if ($C_agenda->deletar($id)) {
+            header('Location: index.php?msg=1');
             echo 'Excluido com sucesso';
         } else {
             echo 'Erro ao excluido';
@@ -73,7 +82,7 @@ if (isset($_POST['Editar'])) {
     <!-- <?php if (isset($printMsg) && $printMsg != '') : ?>
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
-    <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
+    <?php if (isset($_GET['msg']) and $_GET['msg'] == 1) { ?>
         <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
             ATIVIDADE REALIZADA COM SUCESSO!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -194,9 +203,8 @@ if (isset($_POST['Editar'])) {
                     <div class="row">
                         <label for="nome">Nome:</label>
                         <input type="text" class="form-control" name="nome" id="nome" required="">
-                        <br>
                     </div>
-                    <br>
+
                     <div class="row">
                         <label for="servico">Serviço:</label>
                         <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" required="">
@@ -268,7 +276,7 @@ if (isset($_POST['Editar'])) {
                             <br>
                         </div>
                         <div class="row">
-                            <label for="servico">Serviço:</label>
+                            <label for="tipo_servico">Serviço:</label>
                             <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" value="<?= $a['tipo_servico']; ?>" required="">
                             <br>
                         </div>
@@ -329,7 +337,7 @@ if (isset($_POST['Editar'])) {
                     <form action="index.php" method="POST">
                         <input type="hidden" name="id" value="<?= $a['id']; ?>">
                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Não</button>
-                        <input type="submit" class="btn btn-lg btn-success" name="Excluir" value="Sim">
+                        <button type="submit" class="btn btn-lg btn-success" name="Excluir" value="Sim">Sim</button>
                     </form>
                 </div>
             </div>
@@ -338,5 +346,5 @@ if (isset($_POST['Editar'])) {
 <?php } ?>
 
 <?php
-include_once("templates/footer.php");
+
 ?>

@@ -8,10 +8,10 @@ include_once("config/classes.php");
 
 
 // limpar mensagem essa condição limpa a mensagem da pagina ao carregar. 
-if(isset($_SESSION['msg'])){
-   $printMsg = $_SESSION['msg'];
-   $_SESSION['msg'] = ''; 
-}
+// if(isset($_SESSION['msg'])){
+//    $printMsg = $_SESSION['msg'];
+//    $_SESSION['msg'] = ''; 
+// }
 
 ?>
 

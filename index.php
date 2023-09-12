@@ -26,7 +26,7 @@ if (isset($_POST['Novo'])) {
         header('Location: index.php?ins=1');
         // echo "Adicionado com sucesso";
     } else {
-        // header('Location: admin-Cargo.php?ins=0');
+        header('Location: index.php?ins=0');
         echo "Não foi adicionado";
     }
 }
@@ -43,12 +43,27 @@ if (isset($_POST['Editar'])) {
     $periodicidade = $_POST['periodicidade'];
     $contato = $_POST['contato'];
     $id = $_POST['id'];
-    var_dump($_POST);
+    // var_dump($_POST);
 
     if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id)) {
         header('Location: index.php?ins=1');
     } else {
         echo "Erro ao editar o Fornecedor";
+    }
+
+    ###### EXCLUIR FORNECEDOR ##############################
+    
+    if (isset($_POST['Excluir'])) {
+        var_dump($id);
+        $id = $_POST['id'];
+        
+
+        if ($C_agenda->excluir($id)) {
+            header('Location: index.php');
+            echo 'Excluido com sucesso';
+        } else {
+            echo 'Erro ao excluido';
+        }
     }
 }
 
@@ -59,7 +74,7 @@ if (isset($_POST['Editar'])) {
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
     <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
-        <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
+        <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
             ATIVIDADE REALIZADA COM SUCESSO!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -148,7 +163,7 @@ if (isset($_POST['Editar'])) {
                             </td>
                             <td class="actions d-flex justify-content-around">
                                 <div>
-                                    <center><button title="Editar" type="button" class="btn btn-warning mr-1" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
+                                    <center><button title="Editar" type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
                                 </div>
                                 <div>
                                     <center><button title="Deletar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#Excluir<?= $a['id']; ?>"><i class="fas fa-trash"></i></button></center>
@@ -225,8 +240,8 @@ if (isset($_POST['Editar'])) {
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
-                    <button type="submit" name="Novo" class="btn btn-success" value="Enviar">Enviar</button>
+                    <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Fechar</button>
+                    <button type="submit" name="Novo" class="btn btn-lg btn-success" value="Enviar">Enviar</button>
                 </div>
             </form>
         </div>
@@ -240,7 +255,7 @@ if (isset($_POST['Editar'])) {
             <div class="modal-content">
                 <form action="index.php" method="POST">
                     <input type="hidden" name="id" value="<?= $a['id']; ?>">
-                    <div class="modal-header" >
+                    <div class="modal-header">
                         <!-- <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button> -->
                         <h2 class="modal-title" id="myModelLabel">
                             <center>EDITAR FORNECEDOR</center>
@@ -300,6 +315,26 @@ if (isset($_POST['Editar'])) {
         </div>
     </div>
 
+    <!-- MODAL EXCLUIR-->
+    <div class="modal fade" id="Excluir<?= $a['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title">Excluir</h3>
+                </div>
+                <div class="modal-body">
+                    <p>Deseja realmente excluir o fornecedor <?= $a['nome']; ?>?</p>
+                </div>
+                <div class="modal-footer">
+                    <form action="index.php" method="POST">
+                        <input type="hidden" name="id" value="<?= $a['id']; ?>">
+                        <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Não</button>
+                        <input type="submit" class="btn btn-lg btn-success" name="Excluir" value="Sim">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 <?php

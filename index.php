@@ -59,22 +59,22 @@ if (isset($_POST['Editar'])) {
     } else {
         echo "Erro ao editar o Fornecedor";
     }
+}
 
-    ###### EXCLUIR FORNECEDOR ##############################
+###### EXCLUIR FORNECEDOR ##############################
 
-    if (isset($_POST['Excluir'])) {
-        // var_dump($_POST);
+if (isset($_POST['Excluir'])) {
+        var_dump($_POST);
         $id = $_POST['id'];
 
-
         if ($C_agenda->deletar($id)) {
-            header('Location: index.php?msg=1');
-            echo 'Excluido com sucesso';
+            header('Location: index.php?del=1');
+            // echo 'Excluido com sucesso';
         } else {
             echo 'Erro ao excluido';
         }
     }
-}
+
 
 ?>
 
@@ -90,6 +90,16 @@ if (isset($_POST['Editar'])) {
             </button>
         </div>
     <?php } ?>
+    
+    <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>
+        <div class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+            FORNECEDOR DELETADO COM SUCESSO!
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    <?php } ?>
+
 </div>
 
 
@@ -337,7 +347,7 @@ if (isset($_POST['Editar'])) {
                     <form action="index.php" method="POST">
                         <input type="hidden" name="id" value="<?= $a['id']; ?>">
                         <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal">Não</button>
-                        <button type="submit" class="btn btn-lg btn-success" name="Excluir" value="Sim">Sim</button>
+                        <input type="submit" class="btn btn-lg btn-success" name="Excluir" value="Sim">
                     </form>
                 </div>
             </div>

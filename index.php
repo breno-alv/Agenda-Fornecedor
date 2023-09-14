@@ -26,9 +26,9 @@ if (isset($_POST['Novo'])) {
     $forma_pgt = $_POST['forma_pgt'];
     $periodicidade = $_POST['periodicidade'];
     $contato = $_POST['contato'];
+    $informacao = $_POST['informacao'];
 
-
-    if ($C_agenda->inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato)) {
+    if ($C_agenda->inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao)) {
         header('Location: index.php?ins=1');
         // var_dump($_POST['Novo']);
         // echo "Adicionado com sucesso";
@@ -41,6 +41,8 @@ if (isset($_POST['Novo'])) {
 ##### EDITAR UM FORNECEDOR ###########################
 
 if (isset($_POST['Editar'])) {
+
+    
     $nome = $_POST['nome'];
     $tipo_servico = $_POST['tipo_servico'];
     $natureza = $_POST['natureza'];
@@ -49,12 +51,14 @@ if (isset($_POST['Editar'])) {
     $forma_pgt = $_POST['forma_pgt'];
     $periodicidade = $_POST['periodicidade'];
     $contato = $_POST['contato'];
+    $informacao = $_POST['informacao'];
     $id = $_POST['id'];
-    // var_dump($_POST);
 
-    if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id)) {
+    var_dump($_POST);
 
-        header('Location: index.php?msg=1');
+    if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao, $id)) {
+
+        // header('Location: index.php?msg=1');
         // var_dump($_POST);
     } else {
         echo "Erro ao editar o Fornecedor";
@@ -64,16 +68,16 @@ if (isset($_POST['Editar'])) {
 ###### EXCLUIR FORNECEDOR ##############################
 
 if (isset($_POST['Excluir'])) {
-        var_dump($_POST);
-        $id = $_POST['id'];
+    var_dump($_POST);
+    $id = $_POST['id'];
 
-        if ($C_agenda->deletar($id)) {
-            header('Location: index.php?del=1');
-            // echo 'Excluido com sucesso';
-        } else {
-            echo 'Erro ao excluido';
-        }
+    if ($C_agenda->deletar($id)) {
+        header('Location: index.php?del=1');
+        // echo 'Excluido com sucesso';
+    } else {
+        echo 'Erro ao excluido';
     }
+}
 
 
 ?>
@@ -90,9 +94,9 @@ if (isset($_POST['Excluir'])) {
             </button>
         </div>
     <?php } ?>
-    
+
     <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>
-        <div class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+        <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
             FORNECEDOR DELETADO COM SUCESSO!
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -139,6 +143,9 @@ if (isset($_POST['Excluir'])) {
                             <center>Contato</center>
                         </th>
                         <th>
+                            <center>Informações</center>
+                        </th>
+                        <th>
                             <center>Açoes</center>
                         </th>
                     </tr>
@@ -180,6 +187,9 @@ if (isset($_POST['Excluir'])) {
                             <td>
                                 <center><?= $a['contato']; ?></center>
                             </td>
+                            <td>
+                                <center><?= $a['informacao']; ?></center>
+                            </td>
                             <td class="actions d-flex justify-content-around">
                                 <div>
                                     <center><button title="Editar" type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
@@ -200,8 +210,8 @@ if (isset($_POST['Excluir'])) {
 </div>
 
 <!--MODAL NOVO-->
-<div class="modal fade" id="Novo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade bd-example-modal-lg" id="Novo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <form action="index.php" method="POST">
                 <div class="modal-header">
@@ -210,51 +220,55 @@ if (isset($_POST['Excluir'])) {
                     </h2>
                 </div>
                 <div class="modal-body">
-                    <div class="row">
-                        <label for="nome">Nome:</label>
+                    <div class="form-group " >
+                        <label for="nome" >Nome:</label>
                         <input type="text" class="form-control" name="nome" id="nome" required="">
                     </div>
 
-                    <div class="row">
-                        <label for="servico">Serviço:</label>
+                    <div class="form-group">
+                        <label for="servico" >Serviço:</label>
                         <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" required="">
-                        <br>
                     </div>
 
-                    <div class="row">
-                        <label for="natureza">Natureza:</label>
+                    <div class= "form-group" >
+                        <label for="natureza" >Natureza:</label>
                         <input type="text" class="form-control" name="natureza" id="natureza" required="">
-                        <br>
+                        
                     </div>
 
-                    <div class="row">
-                        <label for="vencimento">Vencimento:</label>
+                    <div class="form-group">
+                        <label for="vencimento" >Vencimento:</label>
                         <input type="text" class="form-control" name="vencimento" id="vencimento" required="">
-                        <br>
+                        
                     </div>
 
-                    <div class="row">
-                        <label for="valor">Valor:</label>
+                    <div class="form-group">
+                        <label for="valor" >Valor:</label>
                         <input type="text" class="form-control" name="valor" id="valor" required="">
-                        <br>
+                        
                     </div>
 
-                    <div class="row">
-                        <label for="forma_pgt">Forma Pagamento:</label>
+                    <div class="form-group">
+                        <label for="forma_pgt" >Forma Pagamento:</label>
                         <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" required="">
-                        <br>
+                        
                     </div>
 
-                    <div class="row">
-                        <label for="periodicidade">Periodicidade:</label>
+                    <div class="form-group">
+                        <label for="periodicidade" >Periodicidade:</label>
                         <input type="text" class="form-control" name="periodicidade" id="preiodicidade" required="">
-                        <br>
+                        
                     </div>
 
-                    <div class="row">
-                        <label for="contato">Contato:</label>
+                    <div class="form-group">
+                        <label for="contato" >Contato:</label>
                         <input type="text" class="form-control" name="contato" id="contato" required="">
-                        <br>
+                        
+                    </div>
+                    <div class="form-group">
+                        <label for="informacao" >Informações:</label>
+                        <textarea type="text" class="form-control" name="informacao" rows="3" placeholder="Digite alguma informação do fornecedor..."></textarea>
+                        
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -268,8 +282,8 @@ if (isset($_POST['Excluir'])) {
 
 <?php foreach ($agenda as $a) { ?>
     <!--MODAL EDITAR-->
-    <div class="modal fade " id="Editar<?= $a['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog " role="document">
+    <div class="modal fade bd-example-modal-lg" id="Editar<?= $a['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <form action="index.php" method="POST">
                     <input type="hidden" name="id" value="<?= $a['id']; ?>">
@@ -280,45 +294,41 @@ if (isset($_POST['Excluir'])) {
                         </h2>
                     </div>
                     <div class="modal-body">
-                        <div class="row">
+                        <div class="form-group">
                             <label for="nome">Nome:</label>
                             <input type="text" class="form-control" name="nome" id="nome" value="<?= $a['nome']; ?>" required="">
-                            <br>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="tipo_servico">Serviço:</label>
                             <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" value="<?= $a['tipo_servico']; ?>" required="">
-                            <br>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="natureza">Natureza:</label>
-                            <input type="text" class="form-control" name="natureza" id="natureza" value="<?= $a['natureza']; ?>" required="">
-                            <br>
+                            <input type="text" class="form-control" name="natureza" id="natureza" value="<?= $a['natureza']; ?>" required="">                           
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="vencimento">Vencimento:</label>
-                            <input type="text" class="form-control" name="vencimento" id="vencimento" value="<?= $a['vencimento']; ?>" required="">
-                            <br>
+                            <input type="text" class="form-control" name="vencimento" id="vencimento" value="<?= $a['vencimento']; ?>" required="">                            
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="valor">Valor:</label>
                             <input type="text" class="form-control" name="valor" id="valor" value="<?= $a['valor']; ?>" required="">
-                            <br>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="forma_pgt">Forma Pagamento:</label>
                             <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" value="<?= $a['forma_pgt']; ?>" required="">
-                            <br>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="periodicidade">periodicidade:</label>
                             <input type="text" class="form-control" name="periodicidade" id="periodicidade" value="<?= $a['periodicidade']; ?>" required="">
-                            <br>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <label for="contato">Contato:</label>
                             <input type="text" class="form-control" name="contato" id="contato" value="<?= $a['contato']; ?>" required="">
-                            <br>
+                        </div>
+                        <div class="form-group">
+                            <label for="informacao">Informações:</label>
+                            <textarea type="text" class="form-control" name="informacao" id="informacao" rows="3" value="<?= $a['informacao']; ?>"></textarea> 
                         </div>
                         <!-- <input type="hidden" name="editar" value="<?= $_POST ?>"> -->
                         <div class="modal-footer">

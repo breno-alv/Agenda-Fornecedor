@@ -15,10 +15,10 @@ class C_agenda extends Con{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function inserir($nome, $tipo_servico, $natureza, $vencimento,$valor,$forma_pgt, $periodicidade, $contato) {
+    public function inserir($nome, $tipo_servico, $natureza, $vencimento,$valor,$forma_pgt, $periodicidade, $contato, $informacao) {
 
         $sql = "INSERT INTO cad_fornecedor (nome, tipo_servico, natureza, vencimento, valor, forma_pgt, periodicidade, contato) 
-        VALUES (:nome, :tipo_servico, :natureza, :vencimento, :valor, :forma_pgt, :periodicidade, :contato)" ;
+        VALUES (:nome, :tipo_servico, :natureza, :vencimento, :valor, :forma_pgt, :periodicidade, :contato, :informacao)" ;
 
         $conn = $this->Connect();
         $stmt = $conn->prepare($sql);
@@ -30,7 +30,8 @@ class C_agenda extends Con{
         $stmt->bindParam(":forma_pgt", $forma_pgt, PDO::PARAM_STR);
         $stmt->bindParam(":periodicidade", $periodicidade, PDO::PARAM_STR);
         $stmt->bindParam(":contato", $contato, PDO::PARAM_STR);
-
+        $stmt->bindParam(":informacao", $informacao, PDO::PARAM_STR);
+        
         try {
             return $stmt->execute();
         } catch (Exception $ex) {
@@ -40,8 +41,8 @@ class C_agenda extends Con{
 
    
 
-    public function editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $id) {
-        $sql = "UPDATE cad_fornecedor SET nome = :nome, tipo_servico = :tipo_servico, natureza = :natureza, vencimento = :vencimento, valor = :valor, forma_pgt = :forma_pgt, periodicidade = :periodicidade, contato = :contato WHERE id = :id";
+    public function editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao, $id) {
+        $sql = "UPDATE cad_fornecedor SET nome = :nome, tipo_servico = :tipo_servico, natureza = :natureza, vencimento = :vencimento, valor = :valor, forma_pgt = :forma_pgt, periodicidade = :periodicidade, contato = :contato, informacao = :informacao WHERE id = :id";
 
         $conn = $this->Connect();
         $stmt = $conn->prepare($sql);
@@ -53,6 +54,7 @@ class C_agenda extends Con{
         $stmt->bindParam(":forma_pgt", $forma_pgt, PDO::PARAM_STR);
         $stmt->bindParam(":periodicidade", $periodicidade, PDO::PARAM_STR);
         $stmt->bindParam(":contato", $contato, PDO::PARAM_STR);
+        $stmt->bindParam(":informacao", $informacao, PDO::PARAM_STR);
         $stmt->bindParam(":id", $id, PDO::PARAM_INT);
 
         try {

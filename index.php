@@ -42,7 +42,7 @@ if (isset($_POST['Novo'])) {
 
 if (isset($_POST['Editar'])) {
 
-    
+
     $nome = $_POST['nome'];
     $tipo_servico = $_POST['tipo_servico'];
     $natureza = $_POST['natureza'];
@@ -204,6 +204,12 @@ if (isset($_POST['Excluir'])) {
             </table>
         </div>
     </div>
+    <form class="text-center" action="index.php" method="POST">
+
+        <input type="hidden" name="fano">
+        <button title="Exportar dados" type="submit" name="export-anos" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i>  Exportar dados</button>
+
+    </form>
 <?php else : ?>
     <p id="empty-list-text">Ainda Não há Contatos na sua agenda, <a href="<?= $BASE_URL ?>create.php">Clique aqui para Adicionar</a>.</p>
 <?php endif; ?>
@@ -220,55 +226,55 @@ if (isset($_POST['Excluir'])) {
                     </h2>
                 </div>
                 <div class="modal-body">
-                    <div class="form-group " >
-                        <label for="nome" >Nome:</label>
+                    <div class="form-group ">
+                        <label for="nome">Nome:</label>
                         <input type="text" class="form-control" name="nome" id="nome" required="">
                     </div>
 
                     <div class="form-group">
-                        <label for="servico" >Serviço:</label>
+                        <label for="servico">Serviço:</label>
                         <input type="text" class="form-control" name="tipo_servico" id="tipo_servico" required="">
                     </div>
 
-                    <div class= "form-group" >
-                        <label for="natureza" >Natureza:</label>
+                    <div class="form-group">
+                        <label for="natureza">Natureza:</label>
                         <input type="text" class="form-control" name="natureza" id="natureza" required="">
-                        
+
                     </div>
 
                     <div class="form-group">
-                        <label for="vencimento" >Vencimento:</label>
+                        <label for="vencimento">Vencimento:</label>
                         <input type="text" class="form-control" name="vencimento" id="vencimento" required="">
-                        
+
                     </div>
 
                     <div class="form-group">
-                        <label for="valor" >Valor:</label>
+                        <label for="valor">Valor:</label>
                         <input type="text" class="form-control" name="valor" id="valor" required="">
-                        
+
                     </div>
 
                     <div class="form-group">
-                        <label for="forma_pgt" >Forma Pagamento:</label>
+                        <label for="forma_pgt">Forma Pagamento:</label>
                         <input type="text" class="form-control" name="forma_pgt" id="forma_pgt" required="">
-                        
+
                     </div>
 
                     <div class="form-group">
-                        <label for="periodicidade" >Periodicidade:</label>
+                        <label for="periodicidade">Periodicidade:</label>
                         <input type="text" class="form-control" name="periodicidade" id="preiodicidade" required="">
-                        
+
                     </div>
 
                     <div class="form-group">
-                        <label for="contato" >Contato:</label>
+                        <label for="contato">Contato:</label>
                         <input type="text" class="form-control" name="contato" id="contato" required="">
-                        
+
                     </div>
                     <div class="form-group">
-                        <label for="informacao" >Informações:</label>
+                        <label for="informacao">Informações:</label>
                         <textarea type="text" class="form-control" name="informacao" rows="3" placeholder="Digite alguma informação do fornecedor..."></textarea>
-                        
+
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -304,11 +310,11 @@ if (isset($_POST['Excluir'])) {
                         </div>
                         <div class="form-group">
                             <label for="natureza">Natureza:</label>
-                            <input type="text" class="form-control" name="natureza" id="natureza" value="<?= $a['natureza']; ?>" required="">                           
+                            <input type="text" class="form-control" name="natureza" id="natureza" value="<?= $a['natureza']; ?>" required="">
                         </div>
                         <div class="form-group">
                             <label for="vencimento">Vencimento:</label>
-                            <input type="text" class="form-control" name="vencimento" id="vencimento" value="<?= $a['vencimento']; ?>" required="">                            
+                            <input type="text" class="form-control" name="vencimento" id="vencimento" value="<?= $a['vencimento']; ?>" required="">
                         </div>
                         <div class="form-group">
                             <label for="valor">Valor:</label>
@@ -328,7 +334,7 @@ if (isset($_POST['Excluir'])) {
                         </div>
                         <div class="form-group">
                             <label for="informacao">Informações:</label>
-                            <textarea class="form-control" name="informacao" id="informacao" rows="3" maxlength="200"><?= $a['informacao']; ?></textarea> 
+                            <textarea class="form-control" name="informacao" id="informacao" rows="3" maxlength="500"><?= $a['informacao']; ?></textarea>
                         </div>
                         <!-- <input type="hidden" name="editar" value="<?= $_POST ?>"> -->
                         <div class="modal-footer">

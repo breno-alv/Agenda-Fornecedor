@@ -142,9 +142,9 @@ if (isset($_POST['Excluir'])) {
                         <th>
                             <center>Contato</center>
                         </th>
-                        <th>
+                        <!-- <th>
                             <center>Informações</center>
-                        </th>
+                        </th> -->
                         <th>
                             <center>Açoes</center>
                         </th>
@@ -187,9 +187,9 @@ if (isset($_POST['Excluir'])) {
                             <td>
                                 <center><?= $a['contato']; ?></center>
                             </td>
-                            <td>
+                            <!-- <td>
                                 <center><?= $a['informacao']; ?></center>
-                            </td>
+                            </td> -->
                             <td class="actions d-flex justify-content-around">
                                 <div>
                                     <center><button title="Editar" type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
@@ -328,7 +328,7 @@ if (isset($_POST['Excluir'])) {
                         </div>
                         <div class="form-group">
                             <label for="informacao">Informações:</label>
-                            <textarea type="text" class="form-control" name="informacao" id="informacao" rows="3" value="<?= $a['informacao']; ?>"></textarea> 
+                            <textarea class="form-control" name="informacao" id="informacao" rows="3" maxlength="200"><?= $a['informacao']; ?></textarea> 
                         </div>
                         <!-- <input type="hidden" name="editar" value="<?= $_POST ?>"> -->
                         <div class="modal-footer">

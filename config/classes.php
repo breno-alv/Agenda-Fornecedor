@@ -78,6 +78,16 @@ class C_agenda extends Con{
             return false;
         }
     }
+
+    public function gerarrelatoriofornecedor(){
+        $sql = "SELECT * FROM cad_fornecedor";
+        
+        $conn = $this->Connect();
+        $stmt = $conn->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 ?>

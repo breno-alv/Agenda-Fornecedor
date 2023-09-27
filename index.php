@@ -1,12 +1,12 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 include_once("templates/header.php");
 include_once("templates/footer.php");
 include_once("config/classes.php");
 include_once("templates/footer.php");
+
+include_once("PHPExcel_1.8.0_doc/Classes/PHPExcel.php");
 
 $C_agenda = new C_agenda();
 $agenda = $C_agenda->listar();
@@ -58,7 +58,7 @@ if (isset($_POST['Editar'])) {
 
     if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao, $id)) {
 
-        // header('Location: index.php?msg=1');
+        header('Location: index.php?msg=1');
         // var_dump($_POST);
     } else {
         echo "Erro ao editar o Fornecedor";
@@ -68,7 +68,7 @@ if (isset($_POST['Editar'])) {
 ###### EXCLUIR FORNECEDOR ##############################
 
 if (isset($_POST['Excluir'])) {
-    var_dump($_POST);
+    // var_dump($_POST);
     $id = $_POST['id'];
 
     if ($C_agenda->deletar($id)) {
@@ -79,7 +79,91 @@ if (isset($_POST['Excluir'])) {
     }
 }
 
+###### Relatorio Excel ##############################
 
+if (isset($_POST['export_dados'])) {
+    // var_dump($_POST['export_dados']);
+    $export_fornecedor = $C_agenda->gerarrelatoriofornecedor($_POST['export_dados']);
+
+    $objPHPExcel = new PHPExcel();
+
+    //Cabeçalho Planilha
+    $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue("A1", "nome")
+        ->setCellValue("B1", "tipo_servico")
+        ->setCellValue("C1", "natureza")
+        ->setCellValue("D1", "vencimento")
+        ->setCellValue("E1", "valor")
+        ->setCellValue("F1", "forma_pgt")
+        ->setCellValue("G1", "periodicidade")
+        ->setCellValue("H1", "contato")
+        ->setCellValue("I1", "informacao");
+
+    //VARIAVEL QUE SETA A CELULA COMO NEGRITO
+    $styleArray = array(
+        'font' => array(
+            'bold' => true
+        )
+    );
+
+    //INDICAR AS CELULAS PARA DEIXAR EM NEGRITO
+    $sheet = $objPHPExcel->getActiveSheet();
+    $sheet->getStyle('A1')->applyFromArray($styleArray);
+    $sheet->getStyle('B1')->applyFromArray($styleArray);
+    $sheet->getStyle('C1')->applyFromArray($styleArray);
+    $sheet->getStyle('D1')->applyFromArray($styleArray);
+    $sheet->getStyle('E1')->applyFromArray($styleArray);
+    $sheet->getStyle('F1')->applyFromArray($styleArray);
+    $sheet->getStyle('G1')->applyFromArray($styleArray);
+    $sheet->getStyle('H1')->applyFromArray($styleArray);
+    $sheet->getStyle('I1')->applyFromArray($styleArray);
+    // $sheet->getStyle('J1')->applyFromArray($styleArray);
+    // $sheet->getStyle('K1')->applyFromArray($styleArray);
+    // $sheet->getStyle('L1')->applyFromArray($styleArray);
+    // $sheet->getStyle('M1')->applyFromArray($styleArray);
+    // $sheet->getStyle('N1')->applyFromArray($styleArray);
+    // $sheet->getStyle('O1')->applyFromArray($styleArray);
+    // $sheet->getStyle('P1')->applyFromArray($styleArray);
+
+    //LOOP PARA COLOCAR OS DADOS NA PLANILHA
+    $s = 1;
+    foreach ($export_fornecedor as $i) {
+
+        $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue("A" . ($s + 1), $i['nome'])
+            ->setCellValue("B" . ($s + 1), $i['tipo_servico'])
+            ->setCellValue("C" . ($s + 1), $i['natureza'])
+            ->setCellValue("D" . ($s + 1), $i['vencimento'])
+            ->setCellValue("E" . ($s + 1), $i['valor'])
+            ->setCellValue("F" . ($s + 1), $i['forma_pgt'])
+            ->setCellValue("G" . ($s + 1), $i['periodicidade'])
+            ->setCellValue("H" . ($s + 1), $i['contato'])
+            ->setCellValue("I" . ($s + 1), $i['informacao']);
+
+        $s++;
+    }
+
+    // Podemos renomear o nome das planilha atual, lembrando que um unico arquivo pode ter varias planilhas
+    $objPHPExcel->getActiveSheet()->setTitle("Lista de Fornecedores");
+
+    $arquivoListaFornecedor = 'Content-Disposition: attachment;filename="Lista_de_Fornecedores"' . ".xls";
+
+    // Cabeçalho do arquivo para ele baixar
+     header("Pragma: no-cache");
+     header('Content-Type: application/vnd.ms-excel');
+     header($arquivoListaFornecedor);
+     header('Cache-Control: max-age=0');
+
+    // header('Content-Type: application/vnd.ms-excel');
+    // header('Content-Disposition: attachment;filename="Lista_de_Fornecedores"' . ".xlsx");
+    // header('Cache-Control: max-age=0');
+
+    // Acessamos o 'Writer' para poder salvar o arquivo
+    $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+
+    // Salva diretamente no output.
+    $objWriter->save('php://output');
+}
 ?>
 
 <div class="container">
@@ -202,14 +286,14 @@ if (isset($_POST['Excluir'])) {
                     <?php } ?>
                 </tbody>
             </table>
+            <form class="text-center" action="index.php" method="POST">
+
+                <input type="hidden" name="dados_oculto" value="<?= $_POST?>">
+                <button title="Exportar dados" type="submit" name="export_dados" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i> Exportar dados</button>
+
+            </form>
         </div>
     </div>
-    <form class="text-center" action="index.php" method="POST">
-
-        <input type="hidden" name="fano">
-        <button title="Exportar dados" type="submit" name="export-anos" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i>  Exportar dados</button>
-
-    </form>
 <?php else : ?>
     <p id="empty-list-text">Ainda Não há Contatos na sua agenda, <a href="<?= $BASE_URL ?>create.php">Clique aqui para Adicionar</a>.</p>
 <?php endif; ?>

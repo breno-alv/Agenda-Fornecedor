@@ -9,7 +9,9 @@ include_once("templates/footer.php");
 include_once("PHPExcel_1.8.0_doc/Classes/PHPExcel.php");
 
 $C_agenda = new C_agenda();
+
 $agenda = $C_agenda->listar();
+
 // $agenda = $C_agenda->editar();
 
 ############################################################################
@@ -34,7 +36,7 @@ if (isset($_POST['Novo'])) {
         // echo "Adicionado com sucesso";
     } else {
         header('Location: index.php?ins=0');
-        echo "Não foi adicionado";
+        // echo "Não foi adicionado";
     }
 }
 
@@ -54,14 +56,14 @@ if (isset($_POST['Editar'])) {
     $informacao = $_POST['informacao'];
     $id = $_POST['id'];
 
-    var_dump($_POST);
+    // var_dump($_POST);
 
     if ($C_agenda->editar($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao, $id)) {
 
         header('Location: index.php?msg=1');
         // var_dump($_POST);
     } else {
-        echo "Erro ao editar o Fornecedor";
+    //     echo "Erro ao editar o Fornecedor";
     }
 }
 
@@ -75,29 +77,31 @@ if (isset($_POST['Excluir'])) {
         header('Location: index.php?del=1');
         // echo 'Excluido com sucesso';
     } else {
-        echo 'Erro ao excluido';
+        // echo 'Erro ao excluido';
     }
 }
 
 ###### Relatorio Excel ##############################
 
 if (isset($_POST['export_dados'])) {
-    // var_dump($_POST['export_dados']);
-    $export_fornecedor = $C_agenda->gerarrelatoriofornecedor($_POST['export_dados']);
 
+    $exportFornecedor = $C_agenda->gerarrelatoriofornecedor('result');
+    // var_dump($_POST['export_dados']);
+  
     $objPHPExcel = new PHPExcel();
 
     //Cabeçalho Planilha
     $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue("A1", "nome")
-        ->setCellValue("B1", "tipo_servico")
-        ->setCellValue("C1", "natureza")
-        ->setCellValue("D1", "vencimento")
-        ->setCellValue("E1", "valor")
-        ->setCellValue("F1", "forma_pgt")
-        ->setCellValue("G1", "periodicidade")
-        ->setCellValue("H1", "contato")
-        ->setCellValue("I1", "informacao");
+        ->setCellValue("A1", "id")
+        ->setCellValue("B1", "nome")
+        ->setCellValue("C1", "tipo_servico")
+        ->setCellValue("D1", "natureza")
+        ->setCellValue("E1", "vencimento")
+        ->setCellValue("F1", "valor")
+        ->setCellValue("G1", "forma_pgt")
+        ->setCellValue("H1", "periodicidade")
+        ->setCellValue("I1", "contato")
+        ->setCellValue("J1", "informacao");
 
     //VARIAVEL QUE SETA A CELULA COMO NEGRITO
     $styleArray = array(
@@ -117,28 +121,24 @@ if (isset($_POST['export_dados'])) {
     $sheet->getStyle('G1')->applyFromArray($styleArray);
     $sheet->getStyle('H1')->applyFromArray($styleArray);
     $sheet->getStyle('I1')->applyFromArray($styleArray);
-    // $sheet->getStyle('J1')->applyFromArray($styleArray);
-    // $sheet->getStyle('K1')->applyFromArray($styleArray);
-    // $sheet->getStyle('L1')->applyFromArray($styleArray);
-    // $sheet->getStyle('M1')->applyFromArray($styleArray);
-    // $sheet->getStyle('N1')->applyFromArray($styleArray);
-    // $sheet->getStyle('O1')->applyFromArray($styleArray);
-    // $sheet->getStyle('P1')->applyFromArray($styleArray);
+    $sheet->getStyle('J1')->applyFromArray($styleArray);
+  
 
     //LOOP PARA COLOCAR OS DADOS NA PLANILHA
     $s = 1;
-    foreach ($export_fornecedor as $i) {
+    foreach ($exportFornecedor as $i) {
 
         $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue("A" . ($s + 1), $i['nome'])
-            ->setCellValue("B" . ($s + 1), $i['tipo_servico'])
-            ->setCellValue("C" . ($s + 1), $i['natureza'])
-            ->setCellValue("D" . ($s + 1), $i['vencimento'])
-            ->setCellValue("E" . ($s + 1), $i['valor'])
-            ->setCellValue("F" . ($s + 1), $i['forma_pgt'])
-            ->setCellValue("G" . ($s + 1), $i['periodicidade'])
-            ->setCellValue("H" . ($s + 1), $i['contato'])
-            ->setCellValue("I" . ($s + 1), $i['informacao']);
+            ->setCellValue("A" . ($s + 1), $i['id'])
+            ->setCellValue("B" . ($s + 1), $i['nome'])
+            ->setCellValue("C" . ($s + 1), $i['tipo_servico'])
+            ->setCellValue("D" . ($s + 1), $i['natureza'])
+            ->setCellValue("E" . ($s + 1), $i['vencimento'])
+            ->setCellValue("F" . ($s + 1), $i['valor'])
+            ->setCellValue("G" . ($s + 1), $i['forma_pgt'])
+            ->setCellValue("H" . ($s + 1), $i['periodicidade'])
+            ->setCellValue("I" . ($s + 1), $i['contato'])
+            ->setCellValue("J" . ($s + 1), $i['informacao']);
 
         $s++;
     }
@@ -146,13 +146,13 @@ if (isset($_POST['export_dados'])) {
     // Podemos renomear o nome das planilha atual, lembrando que um unico arquivo pode ter varias planilhas
     $objPHPExcel->getActiveSheet()->setTitle("Lista de Fornecedores");
 
-    $arquivoListaFornecedor = 'Content-Disposition: attachment;filename="Lista_de_Fornecedores"' . ".xls";
+    $arquivoListaFornecedor = "Content-Disposition: attachment;filename=Lista_de_Fornecedores.xls";
 
     // Cabeçalho do arquivo para ele baixar
-     header("Pragma: no-cache");
-     header('Content-Type: application/vnd.ms-excel');
+     header("Pragma:no-cache");
+     header("Content-Type:application/vnd.ms-excel");
      header($arquivoListaFornecedor);
-     header('Cache-Control: max-age=0');
+     header("Cache-Control: max-age=0");
 
     // header('Content-Type: application/vnd.ms-excel');
     // header('Content-Disposition: attachment;filename="Lista_de_Fornecedores"' . ".xlsx");
@@ -253,18 +253,12 @@ if (isset($_POST['export_dados'])) {
                             <td>
                                 <center><?= $a['vencimento']; ?></center>
                             </td>
-                            <!-- <td>
-                                    <center><?= $a['tipo_servico']; ?></center>
-                                </td> -->
                             <td>
                                 <center><?= $a['valor']; ?></center>
                             </td>
                             <td>
                                 <center><?= $a['forma_pgt']; ?></center>
-                            </td>
-                            <!-- <td>
-                                    <center><?= $a['tipo_servico']; ?></center>
-                                </td> -->
+                            </td>                        
                             <td>
                                 <center><?= $a['periodicidade']; ?></center>
                             </td>
@@ -288,7 +282,7 @@ if (isset($_POST['export_dados'])) {
             </table>
             <form class="text-center" action="index.php" method="POST">
 
-                <input type="hidden" name="dados_oculto" value="<?= $_POST?>">
+                <input type="hidden" name="export_dados">
                 <button title="Exportar dados" type="submit" name="export_dados" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i> Exportar dados</button>
 
             </form>
@@ -298,6 +292,7 @@ if (isset($_POST['export_dados'])) {
     <p id="empty-list-text">Ainda Não há Contatos na sua agenda, <a href="<?= $BASE_URL ?>create.php">Clique aqui para Adicionar</a>.</p>
 <?php endif; ?>
 </div>
+
 
 <!--MODAL NOVO-->
 <div class="modal fade bd-example-modal-lg" id="Novo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -346,7 +341,7 @@ if (isset($_POST['export_dados'])) {
 
                     <div class="form-group">
                         <label for="periodicidade">Periodicidade:</label>
-                        <input type="text" class="form-control" name="periodicidade" id="preiodicidade" required="">
+                        <input type="text" class="form-control" name="periodicidade" id="periodicidade" required="">
 
                     </div>
 

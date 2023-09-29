@@ -36,12 +36,12 @@ include_once("config/classes.php");
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="<?= $BASE_URL ?>index.php">
+            <a class="navbar-brand" href="index.php">
                 <img src="<?= $BASE_URL ?>img/agenda.PNG" alt="Agenda">
             </a>
             <div>
                 <div class="navbar-nav">
-                    <a class="nav-link active" id="home-link" href="<?= $BASE_URL ?>index.php">Agenda</a>
+                    <a class="nav-link active" id="home-link" href="index.php">Agenda</a>
                     <a title="Adicionar" class="nav-link active" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
                 </div>
             </div>

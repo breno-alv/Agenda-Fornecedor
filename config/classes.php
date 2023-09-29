@@ -85,8 +85,12 @@ class C_agenda extends Con{
         $conn = $this->Connect();
         $stmt = $conn->prepare($sql);
         $stmt->execute();
+        
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // var_dump($result);
+        return $result;
+        
     }
 }
 

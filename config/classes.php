@@ -15,9 +15,9 @@ class C_agenda extends Con{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function inserir($nome, $tipo_servico, $natureza, $vencimento,$valor,$forma_pgt, $periodicidade, $contato, $informacao) {
+    public function inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao) {
 
-        $sql = "INSERT INTO cad_fornecedor (nome, tipo_servico, natureza, vencimento, valor, forma_pgt, periodicidade, contato) 
+        $sql = "INSERT INTO cad_fornecedor (nome, tipo_servico, natureza, vencimento, valor, forma_pgt, periodicidade, contato, informacao) 
         VALUES (:nome, :tipo_servico, :natureza, :vencimento, :valor, :forma_pgt, :periodicidade, :contato, :informacao)" ;
 
         $conn = $this->Connect();

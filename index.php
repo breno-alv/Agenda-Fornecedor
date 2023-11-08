@@ -86,7 +86,7 @@ if (isset($_POST['Excluir'])) {
 
 ###### Relatorio Excel ##############################
 
-
+use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -138,26 +138,61 @@ if (isset($_POST['export_dados'])) {
 
     $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
 
-    // $writer = new Xlsx($spreadsheet);
+    $writer = new Xlsx($spreadsheet);
 
-    $filename = 'C:\Users\breno.penha\Downloads\ListadeFornecedores3.xlsx';
-
-    // Definir cabeçalhos para download
-
-    // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-    header('Content-Type: application/octet-stream');
-    header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
-    header('Content-Length: ' . filesize($filename));
-    header('Cache-Control: max-age=0');
-    
-
-    // header('Content-Disposition: attachment;filename="' . $filename . '"');
-    echo "teste";
-    // header('Cache-Control: max-age=0');
+     // Definir um nome de arquivo
+    $filename = 'ListadeFornecedores9.xlsx';
 
     // Salvar o arquivo no sistema de arquivos
+    $writer->save('C:\Users\breno.penha\Downloads\\' . $filename);
+
+
+    // Abordagem 1
+    // Definir cabeçalhos para download
+     
+    // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    // header('Content-Disposition: attachment; filename="ListadeFornecedores3.xlsx"');
+    // header('Cache-Control: max-age=0');
+
+
+    // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    // header('Content-Type: application/octet-stream');
+    // header('Content-Disposition: attachment; filename="' . basename($filename) . '"');
+    // header('Content-Length: ' . filesize($filename));
+    // header('Cache-Control: max-age=0');
+
+
+    // header('Content-Disposition: attachment;filename="' . $filename . '"');
+    // echo "teste";
+    // header('Cache-Control: max-age=0');
+
+    //Nova abordagem
+     // Definir cabeçalhos para download
+     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+     header('Content-Disposition: attachment; filename="' . $filename . '"');
+     header('Cache-Control: max-age=0');
+     header('Content-Length: ' . filesize($filename));
+
+     // Lê o arquivo e o envia para a saída (navegador)
+    readfile($filename);
+    // // Exclua o arquivo após o download (opcional)
+    unlink($filename);
+    // Salvar o arquivo no sistema de arquivos
+
+    // $writer->save($filename);
+
+    // Abordagem 1
+    // $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
     // $writer->save('php://output');
-    $writer->save($filename);
+    // Abordagem 2
+    // $writer = new \PhpOffice\PhpSpreadsheet\Writer\Xlsx($spreadsheet);
+    // $filename = 'C:\Users\breno.penha\Downloads\ListadeFornecedores3.xlsx';
+    // $writer->save($filename);
+    // Redirecionar o usuário para o arquivo salvo
+    // header('Location: ' . $filename);
+
+    // $writer->save('php://output');
+    // $writer->save($filename);
 }
 
 ?>
@@ -189,7 +224,7 @@ if (isset($_POST['export_dados'])) {
             <div>
                 <div class="navbar-nav">
                     <a class="nav-link active" id="home-link" href="index.php">Agenda</a>
-                    <a title="Adicionar" class="nav-link active" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
+                    <a title="Adicionar Novo Fornecedor" style="align-items: center;" class="nav-link active" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
                 </div>
             </div>
         </nav>
@@ -257,7 +292,7 @@ if (isset($_POST['export_dados'])) {
                             <center>Informações</center>
                         </th> -->
                             <th>
-                                <center>Açoes</center>
+                                <center>Ações</center>
                             </th>
                         </tr>
                     </thead>
@@ -300,16 +335,16 @@ if (isset($_POST['export_dados'])) {
                                         <center><button title="Editar" type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
                                     </div>
                                     <div>
-                                        <center><button title="Deletar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#Excluir<?= $a['id']; ?>"><i class="fas fa-trash"></i></button></center>
+                                        <center><button title="Deletar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#Excluir<?= $a['id']; ?>"><i class="fa fa-trash"></i></button></center>
                                     </div>
                                 </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
-                <form class="text-center" action="index.php" method="POST">
+                <form class="text-center" action="index.php"  method="POST">
 
-                    <!-- <input type="hidden" name="export_dados"> -->
+                    <input type="hidden" name="export_dados">
                     <button title="Exportar dados" type="submit" name="export_dados" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i> Exportar dados</button>
 
                 </form>

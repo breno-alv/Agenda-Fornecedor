@@ -204,12 +204,31 @@ if (isset($_POST['export_dados'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" integrity="sha512-t4GWSVZO1eC8BM339Xd7Uphw5s17a86tIZIj8qRxhnKub6WoyhnrxeCIMeAqBPgdZGlCcG2PrZjMc+Wr78+5Xg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Font Awesome Fontes, icones Editar, Visualizar e Deletar-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.0/css/all.min.css" integrity="sha512-UJqci0ZyYcQ0AOJkcIkUCxLS2L6eNcOr7ZiypuInvEhO9uqIDi349MEFrqBzoy1QlfcjfURHl+WTMjEdWcv67A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Css -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css">
+    
+    <!-- Inclua o Bootstrap JS (junto com o Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+
+    <!-- Temporizador -->
+    <script>
+        $(document).ready(function(){
+            // Temporizador para ocultar o alerta após 5 segundos (5000 milissegundos)
+            setTimeout(function(){
+                $("#alert").fadeOut("slow", function(){
+                    $(this).alert('close');
+                });
+            }, 4000);
+        });
+    </script>
+
     <title>Lista de Fornecedores</title>
 </head>
 
@@ -234,8 +253,17 @@ if (isset($_POST['export_dados'])) {
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
         <?php if (isset($_GET['msg']) and $_GET['msg'] == 1) { ?>
-            <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
-                ATIVIDADE REALIZADA COM SUCESSO!
+            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+            <i class="fa fa-check-circle"></i>ATIVIDADE REALIZADA COM SUCESSO!
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        <?php } ?>
+
+        <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
+            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+                FORNECEDOR CADASTRADO!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -243,8 +271,8 @@ if (isset($_POST['export_dados'])) {
         <?php } ?>
 
         <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>
-            <div class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
-                FORNECEDOR DELETADO COM SUCESSO!
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+                FORNECEDOR DELETADO!
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -257,8 +285,8 @@ if (isset($_POST['export_dados'])) {
     <?php if (count($agenda) > 0) : ?>
         <!-- <p>Tem Contatos</p> -->
         <div class="card card-solid m-5 ">
-            <div class="card-body bg-light ">
-                <table class="table table-hover table-light" id="tabela-agenda">
+            <div class="card-body">
+                <table class="table table-hover" id="tabela-agenda">
                     <thead>
                         <tr>
                             <th>

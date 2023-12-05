@@ -217,7 +217,7 @@ if (isset($_POST['export_dados'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
-    <!-- Temporizador -->
+    <!-- Temporizador Alert-->
     <script>
         $(document).ready(function(){
             // Temporizador para ocultar o alerta após 5 segundos (5000 milissegundos)
@@ -237,15 +237,19 @@ if (isset($_POST['export_dados'])) {
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.php">
+            <div class="d-flex justify-content-between">
+            <a class="navbar-brand">
                 <img src="img/agenda.PNG" alt="Agenda">
             </a>
-            <div>
-                <div class="navbar-nav">
-                    <a class="nav-link active" id="home-link" href="index.php">Agenda</a>
-                    <a title="Adicionar Novo Fornecedor" style="align-items: center;" class="nav-link active" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
-                </div>
+            <!-- <div class="text-center"> -->
+                <!-- <div class="navbar-nav"> -->
+                    <a class="nav-link active text-white" id="home-link" href="index.php">Agenda</a>
+                    <a title="Adicionar Novo Fornecedor" class="nav-link active text-white" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
+                <!-- </div> -->
+            <!-- </div> -->
+            <h3 class="text-white">Fornecedores</h3> 
             </div>
+              
         </nav>
     </header>
     <div class="container">
@@ -253,35 +257,35 @@ if (isset($_POST['export_dados'])) {
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
         <?php if (isset($_GET['msg']) and $_GET['msg'] == 1) { ?>
-            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
             <i class="fa fa-check-circle"></i>ATIVIDADE REALIZADA COM SUCESSO!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
         <?php } ?>
 
         <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
-            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
                 FORNECEDOR CADASTRADO!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
         <?php } ?>
 
         <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>
-            <div id="alert" class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" id="alerta" role="alert">
+            <div id="alert" class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
                 FORNECEDOR DELETADO!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button>
+                </button> -->
             </div>
         <?php } ?>
 
     </div>
 
-    <h1 id="main-title" class="text-center m-3">Fornecedores</h1>
+    
     <?php if (count($agenda) > 0) : ?>
         <!-- <p>Tem Contatos</p> -->
         <div class="card card-solid m-5 ">

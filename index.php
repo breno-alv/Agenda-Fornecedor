@@ -236,20 +236,19 @@ if (isset($_POST['export_dados'])) {
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="d-flex justify-content-between">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
             <a class="navbar-brand">
                 <img src="img/agenda.PNG" alt="Agenda">
             </a>
             <!-- <div class="text-center"> -->
                 <!-- <div class="navbar-nav"> -->
                     <a class="nav-link active text-white" id="home-link" href="index.php">Agenda</a>
-                    <a title="Adicionar Novo Fornecedor" class="nav-link active text-white" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
+                    <a title="Adicionar Novo Fornecedor" type="button" class=" btn btn-outline-secondary text-white" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
                 <!-- </div> -->
             <!-- </div> -->
-            <h3 class="text-white">Fornecedores</h3> 
-            </div>
-              
+            <div class="navbar-text d-flex align-items-center " style="margin-left: 28%;" >
+                <h3 class="text-white">Fornecedores</h3> 
+            </div>       
         </nav>
     </header>
     <div class="container">

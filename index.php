@@ -217,17 +217,44 @@ if (isset($_POST['export_dados'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <!-- Temporizador Alert-->
     <script>
-        $(document).ready(function(){
-            // Temporizador para ocultar o alerta após 5 segundos (5000 milissegundos)
-            setTimeout(function(){
-                $("#alert").fadeOut("slow", function(){
-                    $(this).alert('close');
-                });
-            }, 4000);
-        });
-    </script>
+        // $(document).ready(function(){
+        //     // Temporizador para ocultar o alerta após 5 segundos (5000 milissegundos)
+        //     setTimeout(function(){
+        //         $("#alert").fadeOut("slow", function(){
+        //             $(this).alert('close');
+        //         });
+        //     }, 4000);
+        // });
+    //     const btnShowSweetAlert = document.querySelector('#btn-salvar');
+    //     btnShowSweetAlert.addEventListener('click', function () {
+    //         Swal.fire({
+    //             title: "Good job!",
+    //             text: "You clicked the button!",
+    //             icon: "success"
+    //         })
+    //     });
+    // </script>
+
+<?php
+    echo '<script>';
+    echo 'document.addEventListener("DOMContentLoaded", function() {';
+    echo '  const btnShowSweetAlert = document.querySelector(\'#btn-salvar\');';
+    echo '  btnShowSweetAlert.addEventListener(\'click\', function () {';   
+    echo '      Swal.fire({';
+    echo '          position: "top-end",';
+    echo '          icon: "success",';
+    echo '          title: "Your work has been saved",';
+    echo '          showConfirmButton: false,';
+    echo '          timer: 1500';
+    echo '      });';
+    echo '  });';
+    echo '});';
+    echo '</script>';
+    ?>
 
     <title>Lista de Fornecedores</title>
 </head>
@@ -237,16 +264,16 @@ if (isset($_POST['export_dados'])) {
 
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
-            <a class="navbar-brand">
+            <a class="navbar-brand " href="index.php">
                 <img src="img/agenda.PNG" alt="Agenda">
             </a>
             <!-- <div class="text-center"> -->
                 <!-- <div class="navbar-nav"> -->
-                    <a class="nav-link active text-white" id="home-link" href="index.php">Agenda</a>
+                    <!-- <a class="nav-link active text-white" id="home-link" href="index.php">Agenda</a> -->
                     <a title="Adicionar Novo Fornecedor" type="button" class=" btn btn-outline-secondary text-white" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
                 <!-- </div> -->
             <!-- </div> -->
-            <div class="navbar-text d-flex align-items-center " style="margin-left: 28%;" >
+            <div class="navbar-text d-flex align-items-center " style="margin-left: 35%;" >
                 <h3 class="text-white">Fornecedores</h3> 
             </div>       
         </nav>
@@ -256,12 +283,24 @@ if (isset($_POST['export_dados'])) {
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
         <?php if (isset($_GET['msg']) and $_GET['msg'] == 1) { ?>
-            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
+
+            <!-- <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
             <i class="fa fa-check-circle"></i>ATIVIDADE REALIZADA COM SUCESSO!
-                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button> -->
-            </div>
+                </button>
+
+            </div> -->
+           <!-- echo '<script>
+            const btnShowSweetAlert = document.querySelector('#btn-salvar');
+        btnShowSweetAlert.addEventListener('click', function () {
+            Swal.fire({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success"
+            })
+        });
+        </script>'; -->
         <?php } ?>
 
         <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
@@ -512,7 +551,7 @@ if (isset($_POST['export_dados'])) {
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-lg btn-danger" data-dismiss="modal" aria-hidden="true">Fechar</button>
                                 <div style="float:right; margin-left: 10px;">
-                                    <input type="submit" class="btn btn-lg btn-success" name="Editar" value="Salvar">
+                                    <input type="submit" id="btn-salvar" class="btn btn-lg btn-success" name="Editar" value="Salvar">
                                 </div>
                             </div>
                         </div>
@@ -542,8 +581,4 @@ if (isset($_POST['export_dados'])) {
             </div>
         </div>
     <?php } ?>
-
-    <?php
-
-    ?>
 </body>

@@ -218,6 +218,7 @@ if (isset($_POST['export_dados'])) {
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  
 
     <!-- Temporizador Alert-->
     <script>
@@ -238,22 +239,21 @@ if (isset($_POST['export_dados'])) {
     //         })
     //     });
     // </script>
+    <?php
+    function exibirSweetAlert() {
+        echo '<script>';
+        echo 'document.addEventListener("DOMContentLoaded", function() {';
+        echo '    Swal.fire({';
+        echo '        position: "top-end",';
+        echo '        icon: "success",';
+        echo '        title: "FORNECEDOR EDITADO!",';
+        echo '        showConfirmButton: false,';
+        echo '        timer: 2000';
+        echo '    });';
+        echo '});';
+        echo '</script>';
+    }
 
-<?php
-    echo '<script>';
-    echo 'document.addEventListener("DOMContentLoaded", function() {';
-    echo '  const btnShowSweetAlert = document.querySelector(\'#btn-salvar\');';
-    echo '  btnShowSweetAlert.addEventListener(\'click\', function () {';   
-    echo '      Swal.fire({';
-    echo '          position: "top-end",';
-    echo '          icon: "success",';
-    echo '          title: "Your work has been saved",';
-    echo '          showConfirmButton: false,';
-    echo '          timer: 1500';
-    echo '      });';
-    echo '  });';
-    echo '});';
-    echo '</script>';
     ?>
 
     <title>Lista de Fornecedores</title>
@@ -261,7 +261,7 @@ if (isset($_POST['export_dados'])) {
 
 
 <body>
-
+<script src="./js/alert.js"></script>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
             <a class="navbar-brand " href="index.php">
@@ -282,34 +282,38 @@ if (isset($_POST['export_dados'])) {
         <!-- <?php if (isset($printMsg) && $printMsg != '') : ?>
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
-        <?php if (isset($_GET['msg']) and $_GET['msg'] == 1) { ?>
+        <?php 
+        if (isset($_GET['msg']) && $_GET['msg'] == 1){
 
-            <!-- <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
-            <i class="fa fa-check-circle"></i>ATIVIDADE REALIZADA COM SUCESSO!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-
-            </div> -->
-           <!-- echo '<script>
-            const btnShowSweetAlert = document.querySelector('#btn-salvar');
-        btnShowSweetAlert.addEventListener('click', function () {
-            Swal.fire({
-                title: "Good job!",
-                text: "You clicked the button!",
-                icon: "success"
-            })
-        });
-        </script>'; -->
-        <?php } ?>
+            exibirSweetAlert();
+        }
+        ?>
 
         <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
             <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
                 FORNECEDOR CADASTRADO!
-                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
-                </button> -->
+                </button>
             </div>
+            <!-- <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const btnShowSweetAlert = document.querySelector('#btn-salvar');
+                    btnShowSweetAlert.addEventListener('click', function (event) {
+                        // Evitar o comportamento padrão (por exemplo, envio de formulário)
+                        event.preventDefault();
+
+                        // Exibir o alerta
+                        Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "FORNECEDOR CADASTRADO!",
+                        showConfirmButton: false,
+                        timer: 2000
+                        });
+                    });
+                });
+            </script> -->
         <?php } ?>
 
         <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>

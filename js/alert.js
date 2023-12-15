@@ -1,4 +1,4 @@
-function exibirSweetAlert() {
+function fornecedorEditado() {
     document.addEventListener("DOMContentLoaded", function() {
        Swal.fire({
        position: "top-end",

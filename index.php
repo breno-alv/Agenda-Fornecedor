@@ -219,7 +219,6 @@ if (isset($_POST['export_dados'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   
-
     <!-- Temporizador Alert-->
     <script>
         // $(document).ready(function(){
@@ -239,29 +238,14 @@ if (isset($_POST['export_dados'])) {
     //         })
     //     });
     // </script>
-    <?php
-    function exibirSweetAlert() {
-        echo '<script>';
-        echo 'document.addEventListener("DOMContentLoaded", function() {';
-        echo '    Swal.fire({';
-        echo '        position: "top-end",';
-        echo '        icon: "success",';
-        echo '        title: "FORNECEDOR EDITADO!",';
-        echo '        showConfirmButton: false,';
-        echo '        timer: 2000';
-        echo '    });';
-        echo '});';
-        echo '</script>';
-    }
-
-    ?>
+   
 
     <title>Lista de Fornecedores</title>
 </head>
 
 
 <body>
-<script src="./js/alert.js"></script>
+
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
             <a class="navbar-brand " href="index.php">
@@ -283,47 +267,26 @@ if (isset($_POST['export_dados'])) {
         <p id="msg"><?= $printMsg ?></p>
     <?php endif; ?> -->
         <?php 
-        if (isset($_GET['msg']) && $_GET['msg'] == 1){
+        if (isset($_GET['msg']) and $_GET['msg'] == 1){
+            
+            fornecedorEditado();     
+        }
+        
+        ?>
 
-            exibirSweetAlert();
+        <?php 
+        if (isset($_GET['ins']) and $_GET['ins'] == 1) {
+
+            fornecedorCadastrado();
         }
         ?>
 
-        <?php if (isset($_GET['ins']) and $_GET['ins'] == 1) { ?>
-            <div id="alert" class="alert alert-success alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
-                FORNECEDOR CADASTRADO!
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <!-- <script>
-                document.addEventListener("DOMContentLoaded", function() {
-                    const btnShowSweetAlert = document.querySelector('#btn-salvar');
-                    btnShowSweetAlert.addEventListener('click', function (event) {
-                        // Evitar o comportamento padrão (por exemplo, envio de formulário)
-                        event.preventDefault();
+        <?php 
+            if (isset($_GET['del']) and $_GET['del'] == 1) {
 
-                        // Exibir o alerta
-                        Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: "FORNECEDOR CADASTRADO!",
-                        showConfirmButton: false,
-                        timer: 2000
-                        });
-                    });
-                });
-            </script> -->
-        <?php } ?>
-
-        <?php if (isset($_GET['del']) and $_GET['del'] == 1) { ?>
-            <div id="alert" class="alert alert-danger alert-dismissible fade show mx-auto w-50 p-3 text-center mt-3" role="alert">
-                FORNECEDOR DELETADO!
-                <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button> -->
-            </div>
-        <?php } ?>
+                fornecedorDeletado();
+        }
+        ?>
 
     </div>
 
@@ -585,4 +548,60 @@ if (isset($_POST['export_dados'])) {
             </div>
         </div>
     <?php } ?>
+
+    <?php
+    function fornecedorEditado() {
+        echo '<script>';
+        echo 'document.addEventListener("DOMContentLoaded", function() {';
+        echo '    Swal.fire({';
+        echo '        position: "top-end",';
+        echo '        icon: "success",';
+        echo '        title: "FORNECEDOR EDITADO!",';
+        echo '        showConfirmButton: false,';
+        echo '        timer: 2000';
+        echo '    });';
+        echo '});';
+        echo '</script>';
+    }
+    
+   
+    function fornecedorCadastrado() {
+        echo '<script>';
+        echo 'document.addEventListener("DOMContentLoaded", function() {';
+        echo '    Swal.fire({';
+        echo '        position: "top-end",';
+        echo '        icon: "success",';
+        echo '        title: "FORNECEDOR CADASTRADO!",';
+        echo '        showConfirmButton: false,';
+        echo '        timer: 2000';
+        echo '    });';
+        echo '});';
+        echo '</script>';
+    }
+
+    
+    function fornecedorDeletado() {
+        echo '<script>';
+        echo '  document.addEventListener("DOMContentLoaded", function() {';
+        echo '    Swal.fire({';
+        echo '        title: "<p>Deseja remover esse Fornecedor?</p>",';
+        echo '              icon: "warning",';
+        echo '              showCancelButton: true,';
+        echo '              confirmButtonColor: "#3085d6",';
+        echo '              cancelButtonColor: "#d33",';
+        echo '              confirmButtonText: "Sim, Deletar!"';
+        echo '        }).then((result) => {';
+        echo '            if (result.isConfirmed) { ';
+        echo '            Swal.fire({ ';
+        echo '            title: "Deleted!",';
+        echo '            text: "Fornecedor Deletado.",';
+        echo '            icon: "success"';
+        echo '            });';
+        echo '        };';
+        echo '   });';
+        echo '</script>';
+    }
+    
+
+    ?>
 </body>

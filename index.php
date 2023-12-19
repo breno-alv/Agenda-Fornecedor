@@ -218,27 +218,6 @@ if (isset($_POST['export_dados'])) {
     <!-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-  
-    <!-- Temporizador Alert-->
-    <script>
-        // $(document).ready(function(){
-        //     // Temporizador para ocultar o alerta após 5 segundos (5000 milissegundos)
-        //     setTimeout(function(){
-        //         $("#alert").fadeOut("slow", function(){
-        //             $(this).alert('close');
-        //         });
-        //     }, 4000);
-        // });
-    //     const btnShowSweetAlert = document.querySelector('#btn-salvar');
-    //     btnShowSweetAlert.addEventListener('click', function () {
-    //         Swal.fire({
-    //             title: "Good job!",
-    //             text: "You clicked the button!",
-    //             icon: "success"
-    //         })
-    //     });
-    // </script>
-   
 
     <title>Lista de Fornecedores</title>
 </head>
@@ -603,7 +582,11 @@ if (isset($_POST['export_dados'])) {
         echo '   });';
         echo '</script>';
     }
-    
-
     ?>
+    <script>
+        var search = document.getElementById("Pesquisar");
+        function searchData() {
+           
+        }
+    </script>
 </body>

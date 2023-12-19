@@ -273,7 +273,7 @@ if (isset($_POST['export_dados'])) {
                     <a title="Adicionar Novo Fornecedor" type="button" class="btn btn-success text-white  ml-4 btn-lg" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a> 
                     <div class="box-search d-flex justify-content-end  mr-4">
                         <input type="search" class="form-control mr-2" placeholder="Pesquiser..." id="pesquisar">
-                        <button class="btn btn-success"><i class="fa fa-search"></i></button>
+                        <button onclick="searchData()" class="btn btn-success"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
                 <table class="table table-striped table-bordered " id="tabela-agenda">
@@ -583,10 +583,19 @@ if (isset($_POST['export_dados'])) {
         echo '</script>';
     }
     ?>
+
+    <!-- Script Pesquisar -->
     <script>
-        var search = document.getElementById("Pesquisar");
+        var search = document.getElementById("pesquisar");
+
+        search.addEventListener("keydown", function(event) {
+            if (event.key === "Enter"){
+                searchData();
+            }
+        });
+
         function searchData() {
-           
+           window.location = 'index.php?search='+search.value;
         }
     </script>
 </body>

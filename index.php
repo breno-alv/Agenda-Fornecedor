@@ -247,21 +247,16 @@ if (isset($_POST['export_dados'])) {
 <body>
 
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">       
-            <a class="navbar-brand " href="index.php">
-                <img src="img/agenda.PNG" alt="Agenda">
-            </a>
-            <!-- <div class="text-center"> -->
-                <!-- <div class="navbar-nav"> -->
-                    <!-- <a class="nav-link active text-white" id="home-link" href="index.php">Agenda</a> -->
-                    <a title="Adicionar Novo Fornecedor" type="button" class=" btn btn-outline-secondary text-white" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a>
-                <!-- </div> -->
-            <!-- </div> -->
-            <div class="navbar-text d-flex align-items-center " style="margin-left: 35%;" >
-                <h3 class="text-white">Fornecedores</h3> 
-            </div>       
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">   
+                <a class="navbar-brand"  href="index.php">
+                    <img src="img/agenda.PNG" style="margin-left: 20px" alt="Agenda">
+                </a>
+                <div class="d-flex justify-content-center" style="margin-left: 37%">
+                 <h3 class="text-white">Fornecedores</h3>
+                </div>   
         </nav>
     </header>
+
     <div class="container">
         <!-- <?php if (isset($printMsg) && $printMsg != '') : ?>
         <p id="msg"><?= $printMsg ?></p>
@@ -293,9 +288,16 @@ if (isset($_POST['export_dados'])) {
     
     <?php if (count($agenda) > 0) : ?>
         <!-- <p>Tem Contatos</p> -->
-        <div class="card card-solid m-5 ">
+        <div class="card card-solid m-4">
             <div class="card-body">
-                <table class="table table-hover" id="tabela-agenda">
+                <div class="d-flex justify-content-between mb-3">
+                    <a title="Adicionar Novo Fornecedor" type="button" class="btn btn-success text-white  ml-4 btn-lg" data-toggle="modal" data-toggle="modal" data-target="#Novo"><i class="fas fa-user-plus"></i></a> 
+                    <div class="box-search d-flex justify-content-end  mr-4">
+                        <input type="search" class="form-control mr-2" placeholder="Pesquiser..." id="pesquisar">
+                        <button class="btn btn-success"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+                <table class="table table-striped table-bordered " id="tabela-agenda">
                     <thead>
                         <tr>
                             <th>
@@ -369,7 +371,7 @@ if (isset($_POST['export_dados'])) {
                             </td> -->
                                 <td class="actions d-flex justify-content-around">
                                     <div>
-                                        <center><button title="Editar" type="button" class="btn btn-warning" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
+                                        <center><button title="Editar" type="button" class="btn btn-info" data-toggle="modal" data-target="#Editar<?= $a['id']; ?>"><i class="fa fa-edit"></i></button></center>
                                     </div>
                                     <div>
                                         <center><button title="Deletar" type="button" class="btn btn-danger" data-toggle="modal" data-target="#Excluir<?= $a['id']; ?>"><i class="fa fa-trash"></i></button></center>
@@ -382,7 +384,7 @@ if (isset($_POST['export_dados'])) {
                 <form class="text-center" action="index.php"  method="POST">
 
                     <input type="hidden" name="export_dados">
-                    <button title="Exportar dados" type="submit" name="export_dados" class=" btn btn-success"><i class="fa fa-solid fa-file-excel"></i> Exportar dados</button>
+                    <button title="Exportar dados" type="submit" name="export_dados" class=" btn btn-secondary"><i class="fa fa-solid fa-file-excel"></i> Exportar dados</button>
 
                 </form>
             </div>
@@ -554,7 +556,7 @@ if (isset($_POST['export_dados'])) {
         echo '<script>';
         echo 'document.addEventListener("DOMContentLoaded", function() {';
         echo '    Swal.fire({';
-        echo '        position: "top-end",';
+        echo '        position: "center",';
         echo '        icon: "success",';
         echo '        title: "FORNECEDOR EDITADO!",';
         echo '        showConfirmButton: false,';
@@ -569,7 +571,7 @@ if (isset($_POST['export_dados'])) {
         echo '<script>';
         echo 'document.addEventListener("DOMContentLoaded", function() {';
         echo '    Swal.fire({';
-        echo '        position: "top-end",';
+        echo '        position: "center",';
         echo '        icon: "success",';
         echo '        title: "FORNECEDOR CADASTRADO!",';
         echo '        showConfirmButton: false,';

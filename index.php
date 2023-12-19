@@ -260,7 +260,7 @@ if (isset($_POST['export_dados'])) {
     <div class="container">
         <!-- <?php if (isset($printMsg) && $printMsg != '') : ?>
         <p id="msg"><?= $printMsg ?></p>
-    <?php endif; ?> -->
+        <?php endif; ?> -->
         <?php 
         if (isset($_GET['msg']) and $_GET['msg'] == 1){
             

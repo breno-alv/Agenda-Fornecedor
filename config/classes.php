@@ -15,6 +15,27 @@ class C_agenda extends Con{
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function pesquisar(){ 
+        
+        $sql = "SELECT * FROM cad_fornecedor WHERE nome LIKE :nome OR tipo_servico LIKE :tipo_servico";
+
+        $conn = $this->Connect();
+        $stmt = $conn->prepare($sql);
+        // $stmt->bindValue(":nome", $nome, PDO::PARAM_STR);
+        // $stmt->bindValue(":tipo_servico", $tipo_servico, PDO::PARAM_STR);
+        
+        var_dump(pesquisar);
+
+        try {
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $ex) {
+            // Trate a exceção se necessário, por exemplo, log ou imprimir mensagem
+            return false;
+        }
+    }
+
+
     public function inserir($nome, $tipo_servico, $natureza, $vencimento, $valor, $forma_pgt, $periodicidade, $contato, $informacao) {
 
         $sql = "INSERT INTO cad_fornecedor (nome, tipo_servico, natureza, vencimento, valor, forma_pgt, periodicidade, contato, informacao) 
